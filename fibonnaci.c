@@ -1,19 +1,34 @@
 //https://www.codechef.com/problems/KFIB
 #include <stdio.h>
-int T(int n,int k)
+#include <stdlib.h>
+int sum(int a[],int k)
 {
-	if(n<=k)
-		return 1;
-	int i,count=0;
-	for(i=1;i<=k;i++)
-		count += T(n-i,k);
+	int i,count = 0;
+	for(i=0;i<k;i++)
+		count += a[i];
 	return count;
+}
+int rotate(int a[],int k)
+{
+	int i;
+	for(i=0;i<k-1;i++)
+		a[i]=a[i+1];
 }
 int main()
 {
-	int n,k;
+	int n,k,i;
 	scanf("%d%d",&n,&k);
-	printf("%d",(T(n,k)%1000000007));
-
+	int *a=(int *)malloc(k*sizeof(int));
+	for(i=0;i<k;i++)
+		a[i]=1;
+	int c=k,s;
+	while(c!=n)
+	{
+		s=sum(a,k);
+		rotate(a,k);
+		a[k-1]=s;
+		c++;
+	}
+	printf("%d\n",a[k-1]%(1000000007));
 	return 0;
 }
