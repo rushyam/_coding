@@ -1,3 +1,4 @@
+//https://www.codechef.com/problems/SMRSTR
 #include <stdio.h>
 int main()
 {
