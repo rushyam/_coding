@@ -31,15 +31,12 @@ int count_b(char s[],int i)
 }
 int main()
 {
-	int f,t;
+	int f=0,t;
 	scanf("%d",&t);
-	printf("sonu\n");
 	for(f=0;f<t;f++)
 	{	
-		printf("rushyam\n");
-		char *s = (char*)malloc(50*sizeof(char));
-		fflush(stdin);
-		gets(s);
+		char s[100000];
+		scanf("%s",s); 
 		int i,c_a=0,c_b=0,flag_a=0,flag_b=0;
 		for(i=0;s[i]!='\0';i++)
 		{
@@ -66,7 +63,7 @@ int main()
 					i = last(s,i); 
 				}
 		}
-		printf("%d %d\n",c_a,c_b);
+		printf("%d %d",c_a,c_b);
 	}
 return 0;
 }
