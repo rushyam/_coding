@@ -1,97 +1,103 @@
+//https://www.codechef.com/problems/WEICOM
 #include <stdio.h>
 #include <stdlib.h>
-
-void swap(int **a,int n,int p)
+int flage = 0;
+int check(short a[],int *n,int *p)
 {
-	int temp;
-	temp=a[p][p+1];
-	a[p][p+1] = a[p+1][p];
-	a[p+1][p]=temp;
-}
-int cost(int **a,int n)
-{
-	int c=0,cost=0,i,j;
-	for(i=0;i<n;i++)
+	if(flage == 1)
+		return 0;
+	int i,j=0,k=1,c,count=2;
+	short **b=(short**)calloc(*n,sizeof(short*));
+	for(i=0;i<*n;i++)
+		b[i]=(short*)calloc(*n,sizeof(short));
+	for(i=0;i<(*n*(*n-1))/2;i++)
+	{
+		b[j][k] = a[i];
+		k++;
+		if(i == *n-count)
+		{
+			k=count;
+			count++;
+			j++;
+		}
+	}
+	int t=*n;
+	for (i = 0; i < t; i++)
+	{
+		for (j = 0; j < t; j++)
+		{
+			if(j>i)
+			{
+				if(b[i][j] == 0)
+					b[j][i] =1;
+				if(b[i][j] == 1)
+					b[j][i] =0;
+			}
+		}
+	}
+	count=0;
+	for (i = 0; i < t; i++)
 	{
 		c=0;
-		for(j=0;j<n;j++)
-			c += a[i][j];
-		cost += c*c;
+		for (j = 0; j < t; j++)
+		{
+			c += b[i][j];
+		}
+		count += c*c;
 	}
-	return cost;
-}
-void print(int **a,int n)
-{
-	int i,j;
-	for(i=0;i<n;i++)
+	
+	if(*p == count)
 	{
-		for(j=0;j<n;j++)
-			printf("%d",a[i][j]);
-		printf("\n");
+		for (i = 0; i < t; i++)
+		{
+			for (j = 0; j < t; j++)
+			{	
+				printf("%hd",b[i][j] );
+			}
+			printf("\n");
+		}
+		flage = 1;
 	}
+	 return 0;
 }
-int change(int **a,int n,int k,int p,int l);
-
-int permute(int **a,int n,int k,int p);
-
+int c=0;
+int permute(short a[],int *n,int *t,int *p)
+{
+	if(c == (*t)-1)
+	{
+		a[c] = 0;
+		check(a,n,p);
+		a[c] = 1;
+		check(a,n,p);
+	}
+	else
+	{
+		a[c] = 0;
+		c++;
+		permute(a,n,t,p);
+		c--;
+		a[c] = 1;
+		c++;
+		permute(a,n,t,p);
+		c--;
+	}
+	return 0;
+}
 int main()
 {
 	int f,t;
 	scanf("%d",&t);
-
-	for(f=0;f<t;f++)
+	for(f=0 ; f<t ; f++)
 	{
-		int k,n,i,j;
+		flage = 0;
+		int x=-1;
+		int i,n,k;
 		scanf("%d%d",&n,&k);
-		
-		int **a=(int **)malloc(n*sizeof(int *));
-		for(i=0;i<n;i++)
-			a[i]=(int *)calloc(n,sizeof(int));
-		
-		for(i=0;i<n;i++)
-			for(j=0;j<n;j++)
-				if(j>i)
-					a[i][j]=1;
-	    permute(a,n,k,0);
-
-	}
-return 0;
-}
-int swap_row()
-int change(int **a,int n,int k,int p,int l)
-{
-	int i;
-	if(l == n)
-		permute(a,n,k,p);
-	else
-		{
-			for(i=l;i<n;i++)
-			{
-				swap_row(a,n,i,p);
-				change(a,n,k,p,i);
-				swap_row(a,n,i,p);
-			}
-		}
- return 0;
-}
-
-int permute(int **a,int n,int k,int p)
-{
-	int i,j;
-	if(n-p == 2)
-	{
-		if(cost(a,n) == k)
-			{
-				print(a,n);
-				return 0;
-			}
-		swap(a,n,p);
-		if(cost(a,n) == k)
-			print(a,n);
-		swap(a,n,p);
-		return 0;
-	}
-	else
-		change(a,n,k,p,p);
-
+		int t = n*(n-1)/2;
+		short *a = (short*)calloc(t,sizeof(short));
+		permute(a,&n,&t,&k);
+		if(flage == 0)
+			printf("%d\n", x);
+	} 
+	return 0;
 }
