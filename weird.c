@@ -1,4 +1,3 @@
-//https://www.codechef.com/problems/WEICOM
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -53,15 +52,12 @@ int main()
 			for(j=0;j<n;j++)
 				if(j>i)
 					a[i][j]=1;
-
-		swap(a,n,2);
-		print(a,n);
-
-	    //permute(a,n,k,0);
+	    permute(a,n,k,0);
 
 	}
 return 0;
 }
+int swap_row()
 int change(int **a,int n,int k,int p,int l)
 {
 	int i;
@@ -71,9 +67,9 @@ int change(int **a,int n,int k,int p,int l)
 		{
 			for(i=l;i<n;i++)
 			{
-				swap(a,n,i);
+				swap_row(a,n,i,p);
 				change(a,n,k,p,i);
-				swap(a,n,i);
+				swap_row(a,n,i,p);
 			}
 		}
  return 0;

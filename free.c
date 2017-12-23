@@ -25,7 +25,7 @@ int main()
 			if(i == j)
 				continue;
 			p = cost(a,i,j);
-			if(max<p);
+			if(max < p);
 				max =p;
 		}
 	}
@@ -38,7 +38,7 @@ int cost(int a[][230],int x,int y)
 	if(a[x][y] != -1)
 		 c= a[x][y];
 
-	int min = 2147483646;
+	int min = 3000000;
 	for(i=0;i<230;i++)
 	{	
 		if(a[x][i]!=-1)
@@ -52,7 +52,6 @@ int cost(int a[][230],int x,int y)
 		min =c;
 	return min;
 }
-
 
 
 
