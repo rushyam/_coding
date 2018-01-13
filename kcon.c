@@ -15,32 +15,38 @@ int main()
 			scanf("%ld",&a[i]);
 			sum += a[i];
 		}
-		long m = -1000001, max_so_far = 0, max_endding_here = 0;
 		long s = sum;
-		if(k>=2)
+		long  max_so_far = -1000001, max_ending_here = 0,m = -1000001;
+		if(k>2 && sum >0)
 		{	
+			long max;
+			long s1= -1000001, s2=-1000001,c=sum,b=sum;
 			for(i=0;i<n;i++)
-			{
-				long x = sum*(k-2) + 2 * s;
-				if( x > m)
-					m = x;
-				s = s-a[i];
+			{		
+				if(s1 < b)
+					s1 =b;
+				if(s2 < c)
+					s2 = c;
+				max = sum * (k-2) + s1 + s2 ;
+				if(m < max)
+					m = max;
+				b -= a[i];
+				c -= a[n-i-1];
 			}
-		} 
-		long f = a[0];
-		for(i=0;i<n;i++)
+		}
+		int x = 2;
+		if(k == 1)
+			x = 1;
+		for(i=0;i<n*x;i++)
 		{
-			if(max_endding_here + a[i] > 0)		
-				max_endding_here += a[i];
-			if(max_endding_here > max_so_far)
-				max_so_far = max_endding_here;
-			if(f < a[i])
-				f = a[i];
-		}	
-		if(max_so_far > m)
-			m = max_so_far;
-		if(f < 0)
-			m = f;
+			max_ending_here = max_ending_here + a[i%n];
+        	if (max_so_far < max_ending_here)
+            	max_so_far = max_ending_here;
+        	if (max_ending_here < 0)
+            	max_ending_here = 0;
+		}
+        if(m < max_so_far)
+        	m = max_so_far;
 		printf("%ld\n",m);
 	}
 	return 0;
