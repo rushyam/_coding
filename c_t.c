@@ -8,7 +8,8 @@ int table(float **x,int c,int n,float d, float s,int a[])
 		{
 			float z = x[i][j-1] + d/s ;
 			float w = x[i-1][j] - a[j];
-			float y = z-w > a[j] ? a[j] : a[j] + z-w; 		
+			float y = z-w > a[j] ? a[j] : a[j] + a[j] - z + w;
+			// printf("%f\t%f\t%f\n",z,w,y); 		
 			x[i][j] = z + y;
 		}
 }
@@ -33,12 +34,12 @@ int main()
 		for(i=1;i<n;i++)
 			x[0][i] = x[0][i-1] + d/s + a[i];
 		table(x,c,n,d,s,a);
-		// for(i=0;i<c;i++)
-		// {
-		// 	for(j=0;j<n;j++)
-		// 		printf("%f\t", x[i][j]);
-		// 	printf("\n");
-		// }
+		for(i=0;i<c;i++)
+		{
+			for(j=0;j<n;j++)
+				printf("%f\t", x[i][j]);
+			printf("\n");
+		}
 		float wait = x[c-1][n-1] - x[0][n-1];
 		printf("%f\n",wait);
 
