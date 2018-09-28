@@ -1,1 +1,1 @@
-# compitative_coding
+# just code
