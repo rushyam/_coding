@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include<math.h>
 int cost(int a[][230],int x,int y);
 int main()
 {
